@@ -1,17 +1,21 @@
-const handlebars = require('handlebars');
+const getRandomColor = () => {
+  const randomColorNumber = Math.floor(Math.random() * 16777215);
+  const randomColorHex = randomColorNumber.toString(16);
+  return randomColorHex;
+};
 
-handlebars.registerHelper('generateGrid', (size) => {
-  let gridHTML = '<div class="grid-container">';
-  for (let i = 0; i < size * size; i++) {
-    const color = getRandomColor();
-    gridHTML += `<div style="background-color: #${color}; color: white;">${color}</div>`;
+const generateColorGridData = () => {
+  const colorGrid = [];
+  for (let i = 0; i < 3; i++) {
+    const row = [];
+    for (let j = 0; j < 3; j++) {
+      const color = getRandomColor();
+      row.push({ color, hexCode: `#${color.toUpperCase()}` });
+    }
+    colorGrid.push(row);
   }
-  gridHTML += '</div>';
-  return new handlebars.SafeString(gridHTML);
-});
+  return colorGrid;
+};
 
-function getRandomColor() {
-  return ((1 << 24) * Math.random() | 0).toString(16);
-}
+module.exports = { getRandomColor, generateColorGridData };
 
-module.exports = handlebars;

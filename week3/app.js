@@ -8,10 +8,18 @@ const cookieParser = require('cookie-parser');
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
 
+
+
+
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'hbs');
 hbs.registerPartials(path.join(__dirname, '/views/partials'));
+
+app.set('view engine', 'hbs');
+app.set('views', path.join(__dirname, 'views'));
+
+
 
 app.use(logger('dev'));
 app.use(express.json());
@@ -22,15 +30,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 
-// Handle form submission
-app.post('/results', (req, res) => {
-  console.log('Form submitted!');
-  const size = req.body.size;
-  console.log('Size:', size);
 
-  // Process form data and render results view
-  res.render('results', { size });
-});
 
 // error handler
 app.use((err, req, res, next) => {
